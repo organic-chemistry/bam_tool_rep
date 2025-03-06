@@ -5,7 +5,7 @@ Install
 conda create -n bam_tool_rep -c bioconda pysam
 conda activate bam_tool_rep
 git clone git@github.com:organic-chemistry/bam_tool_rep.git
-pip install -e
+pip install -e .
 ```
 #eventually install notebook : conda install jupyterlab
 
