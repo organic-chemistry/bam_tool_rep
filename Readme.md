@@ -31,3 +31,8 @@ r = load_read_bam_multi(bam,res=100,remove_less_than={"b":lower_mean_brdu_thresh
 # r[k][0] contain information about sequence chromosomes and so on
 ```
 
+
+Notebook
+=================
+See the notebooks repertory for example of usage
+
