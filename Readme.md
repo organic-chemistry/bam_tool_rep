@@ -2,8 +2,8 @@ Install
 ==============
 
 ```bash
-conda create -n bam_tool_rep -c bioconda pysam tqdm numpy pandas
-conda activate bam_tool_rep
+mamba create -n bam_tool_rep -c bioconda pysam tqdm numpy pandas
+mamba activate bam_tool_rep
 git clone git@github.com:organic-chemistry/bam_tool_rep.git
 pip install -e .
 ```
