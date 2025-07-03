@@ -2,7 +2,7 @@ Install
 ==============
 
 ```bash
-conda create -n bam_tool_rep -c bioconda pysam
+conda create -n bam_tool_rep -c bioconda pysam tqdm numpy pandas
 conda activate bam_tool_rep
 git clone git@github.com:organic-chemistry/bam_tool_rep.git
 pip install -e .
@@ -25,6 +25,7 @@ lower_mean_brdu_threshold=0.05 # remove reads whom median brdu content are lower
 r = load_read_bam_multi(bam,res=100,remove_less_than={"b":lower_mean_brdu_threshold},
                         remove_shorter_than=remove_read_shorter_than,
                         maxi=maximum_of_read_processed,threads=3)
+print(len(r)==14)
 
 # r is a dictionnary where each item is a read_id / processed read
 # r[k][1]["b"] contain the binned read, where k is a key.
