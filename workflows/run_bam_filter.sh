@@ -14,7 +14,7 @@ fi
 for BAM in "$FOLDER"/*.bam; do
   if [ -f "$BAM" ]; then
     echo "Processing $BAM ..."
-    python scripts/pickle.py "$BAM" \
+    python scripts/pickle_bam.py "$BAM" \
       --remove-shorter-than 5000 \
       --brdu-threshold 0.05 \
       --threads 3 \
