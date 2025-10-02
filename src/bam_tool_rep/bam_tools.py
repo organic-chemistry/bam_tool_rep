@@ -259,6 +259,7 @@ def process_single_read(read,verbose=False,res=1,chs=None,
             print(Smm)
             print("sep")
             print(Smm[Smm.index(",")+1:])
+            np.fromstring(Smm[Smm.index(",")+1:], dtype=np.int, sep=',')
             return None
 
         Mm[base]=shift
