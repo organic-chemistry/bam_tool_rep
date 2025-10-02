@@ -20,7 +20,7 @@ for BAM in "$FOLDER"/*.bam; do
     fi
 
     echo "Processing $BAM ..."
-    python bam_filter_cli.py "$BAM" \
+    python script/bam_tools.py "$BAM" \
       --remove-shorter-than 5000 \
       --brdu-threshold 0.05 \
       --threads 3 \
