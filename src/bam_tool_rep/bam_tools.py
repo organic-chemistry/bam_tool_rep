@@ -249,16 +249,17 @@ def process_single_read(read,verbose=False,res=1,chs=None,
     base_ref={}
     for Smm in Mmt:
         base = Smm[2:3]
+        #print(Smm)
+
         #shift = [int(v) for v in Smm.split(",")[1:]]
         try:
             shift= np.fromstring(Smm[Smm.index(",")+1:], dtype=np.int, sep=',')
         except:
-            try:
-                shift= np.fromstring(Smm[Smm.index("?")+1:], dtype=np.int, sep=',')
-            except:
-                print("Strange read skipping ")
-                print(Smm)
-                return None
+            print("Strange read skipping ")
+            print(Smm)
+            print("sep")
+            print(Smm[Smm.index(",")+1:])
+            return None
 
         Mm[base]=shift
         base_ref[base]=Smm[:1]
