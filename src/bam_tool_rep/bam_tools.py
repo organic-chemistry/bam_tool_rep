@@ -253,7 +253,8 @@ def process_single_read(read,verbose=False,res=1,chs=None,
         try:
             shift= np.fromstring(Smm[Smm.index(",")+1:], dtype=np.int, sep=',')
         except:
-            print("Strange read skipping")
+            print("Strange read skipping ")
+            print(Smm)
             return None
 
         Mm[base]=shift
