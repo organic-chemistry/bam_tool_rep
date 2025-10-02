@@ -1,5 +1,6 @@
 import argparse
 from bam_tool_rep.bam_tools import load_read_bam_multi
+import pickle
 
 
 def main():
@@ -58,10 +59,16 @@ def main():
         threads=args.threads,
     )
 
+    pickle_file = args.bam + ".pickle"
+    with open(pickle_file, "wb") as f:
+        pickle.dump(r, f)
+
+
     if args.check_size:
         print(f"Number of reads returned: {len(r)}")
+        print(f"Saved results to {pickle_file}")
     else:
-        print("Reads loaded successfully.")
+        print(f"Reads loaded successfully and saved to {pickle_file}.")
 
 
 if __name__ == "__main__":
