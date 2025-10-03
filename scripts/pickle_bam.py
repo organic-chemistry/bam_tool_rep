@@ -15,7 +15,7 @@ def main():
     parser.add_argument(
         "--remove-shorter-than",
         type=int,
-        default=5000,
+        default=15000,
         help="Remove reads shorter than this length (in bp). Default: 5000."
     )
     parser.add_argument(
@@ -27,7 +27,7 @@ def main():
     parser.add_argument(
         "--brdu-threshold",
         type=float,
-        default=0.05,
+        default=0.00,
         help="Lower mean BrdU threshold. Remove reads with lower BrdU content. Default: 0.05."
     )
     parser.add_argument(
@@ -54,6 +54,7 @@ def main():
         args.bam,
         res=args.res,
         remove_less_than={"b": args.brdu_threshold},
+        emove_smooth_max_less_than={"b":0.3},
         remove_shorter_than=args.remove_shorter_than,
         maxi=args.max_reads,
         threads=args.threads,

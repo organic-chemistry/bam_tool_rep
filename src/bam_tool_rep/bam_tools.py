@@ -156,7 +156,8 @@ def load_read_bam_multi(bam, threads=4,maxi=None, **kwargs):
                     res=kwargs.get('res', 1),
                     no_seq=kwargs.get('no_seq', False),
                     remove_less_than=kwargs.get('remove_less_than',None),
-                    allready_mod=kwargs.get('allready_mod', True)
+                    allready_mod=kwargs.get('allready_mod', True),
+                    remove_smooth_max_less_than=kwargs.get('remove_smooth_max_less_than', None),
                 )
             )
             monitor.update(1)  # Update progress bar here
@@ -175,7 +176,8 @@ def load_read_bam_multi(bam, threads=4,maxi=None, **kwargs):
 
 def process_single_read(read,verbose=False,res=1,chs=None,
                         allready_mod=True,
-                        remove_less_than=None,no_seq=False,remove_shorter_than=None):
+                        remove_less_than=None,no_seq=False,remove_shorter_than=None,
+                        remove_smooth_max_less_than={}):
     """
     filter_b and n_b are here to select signal with Brdu
     it select the signal if n_b points are higher that filter_b
@@ -303,14 +305,32 @@ def process_single_read(read,verbose=False,res=1,chs=None,
     if remove_less_than is not None:
         if Nn == {}:
             return None
-        else:
-            for m in Mm.keys():
-                if type(remove_less_than) == float:
-                    th = remove_less_than
-                else:
-                    th = remove_less_than.get(m,0)
-                if np.nanmean(Nn[m]) <= th:
-                    return None
+        for m in Mm.keys():
+            if isinstance(remove_less_than, float):
+                th = remove_less_than
+            else:
+                if m not in remove_less_than:
+                    continue  # skip mods without a threshold
+                th = remove_less_than[m]
+
+            mean_val = np.nanmean(Nn[m])
+            if np.isnan(mean_val) or mean_val <= th:
+                return None
+    
+    if remove_smooth_max_less_than is not None:
+        if Nn == {}:
+            return None
+        for m in Mm.keys():
+            if isinstance(remove_smooth_max_less_than, float):
+                th = remove_smooth_max_less_than
+            else:
+                if m not in remove_smooth_max_less_than:
+                    continue  # skip mods without a threshold
+                th = remove_smooth_max_less_than[m]
+            #print(np.max(smooth(Nn[m],10)))
+            if np.nanmax(smooth(Nn[m],10))<th:
+                #print("Skip")
+                return None
 
 
 
