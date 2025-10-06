@@ -54,7 +54,7 @@ def main():
         args.bam,
         res=args.res,
         remove_less_than={"b": args.brdu_threshold},
-        emove_smooth_max_less_than={"b":0.3},
+        remove_smooth_max_less_than={"b":0.3},
         remove_shorter_than=args.remove_shorter_than,
         maxi=args.max_reads,
         threads=args.threads,
